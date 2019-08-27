@@ -232,6 +232,14 @@ def stratum_deps():
             commit = "a3b25bf1a854ca7245d5786fda4821df77c57827",
         )
 
+    if "com_github_jbeder_yaml_cpp" not in native.existing_rules():
+        remote_workspace(
+            name = "com_github_jbeder_yaml_cpp",
+            remote = "https://github.com/jbeder/yaml-cpp",
+            commit = "562aefc114938e388457e6a531ed7b54d9dc1b62",
+            build_file = "@//bazel:external/yamlcpp.BUILD",
+        )
+
 # -----------------------------------------------------------------------------
 #      Golang specific libraries.
 # -----------------------------------------------------------------------------
