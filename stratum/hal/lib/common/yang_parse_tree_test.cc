@@ -3475,7 +3475,7 @@ TEST_F(YangParseTreeOpticalChannelTest,
   const ::google::protobuf::uint32 precision = 2;
   SubstituteRetrieveValue(&DataResponse::mutable_input_power,
                           &InputPower::set_allocated_instant,
-                          TypedDecimalInitializer<::ywrapper::Decimal64Value>(
+                          TypedDecimalInitializer<Decimal64>(
                               digits, precision).InitAllocated());
 
   ::gnmi::SubscribeResponse resp;
@@ -3503,7 +3503,7 @@ TEST_F(YangParseTreeOpticalChannelTest,
   const ::google::protobuf::uint32 precision = 2;
   SubstituteRetrieveValue(&DataResponse::mutable_input_power,
                           &InputPower::set_allocated_avg,
-                          TypedDecimalInitializer<::ywrapper::Decimal64Value>(
+                          TypedDecimalInitializer<Decimal64>(
                               digits, precision).InitAllocated());
 
   ::gnmi::SubscribeResponse resp;
@@ -3551,7 +3551,7 @@ TEST_F(YangParseTreeOpticalChannelTest,
   const ::google::protobuf::uint32 precision = 2;
   SubstituteRetrieveValue(&DataResponse::mutable_input_power,
                           &InputPower::set_allocated_max,
-                          TypedDecimalInitializer<::ywrapper::Decimal64Value>(
+                          TypedDecimalInitializer<Decimal64>(
                               digits, precision).InitAllocated());
 
   ::gnmi::SubscribeResponse resp;
@@ -3599,7 +3599,7 @@ TEST_F(YangParseTreeOpticalChannelTest,
   const ::google::protobuf::uint32 precision = 2;
   SubstituteRetrieveValue(&DataResponse::mutable_input_power,
                           &InputPower::set_allocated_min,
-                          TypedDecimalInitializer<::ywrapper::Decimal64Value>(
+                          TypedDecimalInitializer<Decimal64>(
                               digits, precision).InitAllocated());
 
   ::gnmi::SubscribeResponse resp;
@@ -3654,10 +3654,9 @@ TEST_F(YangParseTreeOpticalChannelTest,
   ASSERT_OK(ExecuteOnUpdate(path, value, &req, nullptr));
   ASSERT_THAT(req.requests(), SizeIs(1));
 
-  ::ywrapper::Decimal64Value result
-      = req.requests(0).port().output_power().instant();
+  Decimal64 result = req.requests(0).port().output_power().instant();
   const bool equal = TypedDecimalComparator::Equal<::gnmi::Decimal64,
-                                                   ::ywrapper::Decimal64Value>(
+                                                   Decimal64>(
           TypedDecimalInitializer<::gnmi::Decimal64>(digits, precision).Init(),
           result);
 
@@ -3689,10 +3688,9 @@ TEST_F(YangParseTreeOpticalChannelTest,
   ::gnmi::SubscribeResponse resp;
   ASSERT_OK(ExecuteOnPoll(path, &resp));
 
-  ::ywrapper::Decimal64Value result
-      = req.requests(0).port().output_power().instant();
+  Decimal64 result = req.requests(0).port().output_power().instant();
   const bool equal = TypedDecimalComparator::Equal<::gnmi::Decimal64,
-                                                   ::ywrapper::Decimal64Value>(
+                                                   Decimal64>(
           TypedDecimalInitializer<::gnmi::Decimal64>(digits, precision).Init(),
           result);
 
@@ -3711,7 +3709,7 @@ TEST_F(YangParseTreeOpticalChannelTest,
   const ::google::protobuf::uint32 precision = 2;
   SubstituteRetrieveValue(&DataResponse::mutable_output_power,
                           &OutputPower::set_allocated_instant,
-                          TypedDecimalInitializer<::ywrapper::Decimal64Value>(
+                          TypedDecimalInitializer<Decimal64>(
                               digits, precision).InitAllocated());
 
   ::gnmi::SubscribeResponse resp;
@@ -3739,7 +3737,7 @@ TEST_F(YangParseTreeOpticalChannelTest,
   const ::google::protobuf::uint32 precision = 2;
   SubstituteRetrieveValue(&DataResponse::mutable_output_power,
                           &OutputPower::set_allocated_avg,
-                          TypedDecimalInitializer<::ywrapper::Decimal64Value>(
+                          TypedDecimalInitializer<Decimal64>(
                               digits, precision).InitAllocated());
 
   ::gnmi::SubscribeResponse resp;
@@ -3787,7 +3785,7 @@ TEST_F(YangParseTreeOpticalChannelTest,
   const ::google::protobuf::uint32 precision = 2;
   SubstituteRetrieveValue(&DataResponse::mutable_output_power,
                           &OutputPower::set_allocated_max,
-                          TypedDecimalInitializer<::ywrapper::Decimal64Value>(
+                          TypedDecimalInitializer<Decimal64>(
                               digits, precision).InitAllocated());
 
   ::gnmi::SubscribeResponse resp;
@@ -3835,7 +3833,7 @@ TEST_F(YangParseTreeOpticalChannelTest,
   const ::google::protobuf::uint32 precision = 2;
   SubstituteRetrieveValue(&DataResponse::mutable_output_power,
                           &OutputPower::set_allocated_min,
-                          TypedDecimalInitializer<::ywrapper::Decimal64Value>(
+                          TypedDecimalInitializer<Decimal64>(
                               digits, precision).InitAllocated());
 
   ::gnmi::SubscribeResponse resp;
