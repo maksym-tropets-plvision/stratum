@@ -307,16 +307,6 @@ def stratum_deps():
         )
 
 # -----------------------------------------------------------------------------
-#        TAI library
-# -----------------------------------------------------------------------------
-    if "com_github_oopt_tai" not in native.existing_rules():
-        remote_workspace(
-            name = "com_github_oopt_tai",
-            remote = "https://github.com/bohdan-oheruk-plvision/oopt-tai.git",
-            commit = "b70d94ad5a2e686dbca6bc813f3767ecc0fa22d4",
-        )
-
-# -----------------------------------------------------------------------------
 #        Packaging tools
 # -----------------------------------------------------------------------------
     if "rules_pkg" not in native.existing_rules():
@@ -325,4 +315,22 @@ def stratum_deps():
             url = "https://github.com/bazelbuild/rules_pkg/releases/download/0.2.4/rules_pkg-0.2.4.tar.gz",
             sha256 = "4ba8f4ab0ff85f2484287ab06c0d871dcb31cc54d439457d28fd4ae14b18450a",
         )
+
+# -----------------------------------------------------------------------------
+#        TAI library
+# -----------------------------------------------------------------------------
+    if "com_github_oopt_tai" not in native.existing_rules():
+        remote_workspace(
+            name = "com_github_oopt_tai",
+            remote = "https://github.com/bohdan-oheruk-plvision/oopt-tai.git",
+            commit = "04dcb585a729330b81c03afbe8f4b5b7bfeee413",
+        )
+    
+    if "com_github_tai_mux" not in native.existing_rules():
+        remote_workspace(
+            name = "com_github_tai_implementations",
+            remote = "https://github.com/bohdan-oheruk-plvision/oopt-tai-implementations.git",
+            commit = "9a83a088063279e0e1648787fc562abb0f8e688a",
+        )
+
 
