@@ -39,15 +39,19 @@ static void add_status(::grpc::ServerContext* context, tai_status_t status) {
 }
 
 ::grpc::Status TAIServiceImpl::ListModule(::grpc::ServerContext* context, const taish::ListModuleRequest* request, ::grpc::ServerWriter< taish::ListModuleResponse>* writer) {
-
+    LOG(ERROR) << "++++++++++++++++++++++++++ 1: " << m_api;
     std::vector<tai_api_module_t> list;
     auto ret = m_api->list_module(list);
     if ( ret != TAI_STATUS_SUCCESS ) {
         goto err;
     }
+    LOG(ERROR) << "++++++++++++++++++++++++++ 2";
     for ( const auto& module : list ) {
+        LOG(ERROR) << "++++++++++++++++++++++++++ 3";
         auto res = taish::ListModuleResponse();
+        LOG(ERROR) << "++++++++++++++++++++++++++ 4";
         auto m = res.mutable_module();
+        LOG(ERROR) << "++++++++++++++++++++++++++ 5";
 
         m->set_location(module.location);
         m->set_present(module.present);

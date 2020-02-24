@@ -45,26 +45,25 @@ TAIManager* TAIManager::GetSingleton() {
   return singleton_;
 }
 
+void grpc_thread(const std::string& addr, TAIWrapperInterface* tai_wrapper) {
+  LOG(ERROR) << ">>>>>>>>>>>>>>>>>>>> || Taish server thread started!"
+              << " Address: " << addr;
+  ::grpc::ServerBuilder builder;
+  builder.AddListeningPort(
+      grpc::string(addr), grpc::InsecureServerCredentials());
+
+  const tai_api_method_table_t* const api_ptr = tai_wrapper->GetMethodTableApiPtr();
+  TAIServiceImpl service(api_ptr);
+  builder.RegisterService(&service);
+
+  auto server = builder.BuildAndStart();
+
+  LOG(ERROR) << ">>>>>>>>>>>>>>>>>>>> || Taish server thread will wait..";
+  server->Wait();
+}
+
 void TAIManager::StartTaishServer(const std::string& addr) {
-  auto grpc_thread = [this](const std::string& addr) {
-    LOG(ERROR) << ">>>>>>>>>>>>>>>>>>>> || Taish server thread started!"
-               << " Address: " << addr;
-
-    ::grpc::ServerBuilder builder;
-    builder.AddListeningPort(
-        grpc::string(addr), grpc::InsecureServerCredentials());
-
-    const tai_api_method_table_t* const api_ptr = tai_wrapper_->GetMethodTableApiPtr();
-    TAIServiceImpl service(api_ptr);
-    builder.RegisterService(&service);
-
-    auto server = builder.BuildAndStart();
-
-    LOG(ERROR) << ">>>>>>>>>>>>>>>>>>>> || Taish server thread will wait..";
-    server->Wait();
-  };
-
-  std::thread th(grpc_thread, addr);
+  std::thread th(&grpc_thread, addr, tai_wrapper_.get());
   th.detach();
 }
 
