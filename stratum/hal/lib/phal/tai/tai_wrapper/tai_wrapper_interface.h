@@ -98,6 +98,8 @@ class TAIWrapperInterface {
   virtual std::weak_ptr<TAIObject> GetObject(
       const TAIPathItem& pathItem) const = 0;
 
+  virtual tai_api_method_table_t* GetMethodTableApiPtr() = 0;
+
   virtual bool IsObjectValid(const TAIPath& path) const = 0;
   virtual bool IsModuleIdValid(std::size_t id) const = 0;
 };

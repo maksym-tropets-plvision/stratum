@@ -59,6 +59,9 @@ class TAIManager {
       const T& value_to_set, tai_attr_id_t attr_id,
       const std::pair<uint64, uint32>& module_netif_pair) const;
 
+  // TODO
+  void StartTaishServer(const std::string& addr);
+
   bool IsObjectValid(const TAIPath& path);
 
   // Not copyable or movable

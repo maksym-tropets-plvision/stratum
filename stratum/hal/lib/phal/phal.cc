@@ -41,6 +41,7 @@
 #endif  // defined(WITH_TAI)
 
 DECLARE_string(phal_config_path);
+DEFINE_string(taish_server_address, "", "description");
 
 namespace stratum {
 namespace hal {
@@ -96,6 +97,15 @@ Phal* Phal::CreateSingleton() {
       ASSIGN_OR_RETURN(auto configurator,
                        tai::TaiSwitchConfigurator::Make(tai_manager));
       configurators.push_back(std::move(configurator));
+
+      LOG(ERROR) << ">>>>>>>>>>>>>>>>>>>> || Sleep before starting server.";
+      absl::SleepFor(absl::Seconds(5));
+      const std::string& addr = FLAGS_taish_server_address;
+      LOG(ERROR) << ">>>>>>>>>>>>>>>>>>>> || Starting with address: " << addr;
+      tai_manager->StartTaishServer(addr);
+      LOG(ERROR) << ">>>>>>>>>>>>>>>>>>>> || Started server. Sleep now.";
+      absl::SleepFor(absl::Seconds(20));
+      LOG(ERROR) << ">>>>>>>>>>>>>>>>>>>> || Continue...";
     }
 #endif  // defined(WITH_TAI)
 

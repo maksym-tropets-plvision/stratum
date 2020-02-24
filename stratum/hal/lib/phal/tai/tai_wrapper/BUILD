@@ -29,6 +29,23 @@ package(
 
 load("@com_github_grpc_grpc//bazel:cc_grpc_library.bzl", "cc_grpc_library")
 
+proto_library(
+    name = "taish_proto",
+    srcs = ["taish.proto"],
+)
+
+cc_proto_library(
+    name = "taish_cc_proto",
+    deps = [":taish_proto"],
+)
+
+cc_grpc_library(
+    name = "tai_proto_grpc",
+    srcs = [":taish_proto"],
+    deps = [":taish_cc_proto"],
+    grpc_only = True,
+)
+
 stratum_cc_library(
     name = "tai",
     srcs = [
@@ -41,6 +58,8 @@ stratum_cc_library(
         "types_converter.cc",
         "tai_attribute.cc",
         "tai_wrapper_interface.cc",
+        "server.cpp",
+        "attribute.cpp",
     ],
     hdrs = [
         "tai_manager.h",
@@ -52,6 +71,10 @@ stratum_cc_library(
         "types_converter.h",
         "tai_attribute.h",
         "tai_wrapper_interface.h",
+        "taigrpc.hpp",
+        "attribute.hpp",
+        "exception.hpp",
+        "logger.hpp",
     ],
     deps = [
         "@com_github_tai_implementations//tai_mux:libtai-mux",
@@ -61,6 +84,9 @@ stratum_cc_library(
         # tai_manager.h/.cc dependencies
         "//stratum/lib:utils",
         "//stratum/hal/lib/common:common_cc_proto",
+        "@com_github_grpc_grpc//:grpc++",
+        ":tai_proto_grpc",
+        "@com_google_absl//absl/base:core_headers",
     ],
 )
 
@@ -90,6 +116,8 @@ stratum_cc_test(
         "types_converter.h",
         "tai_attribute.h",
         "tai_wrapper_interface.h",
+        "taigrpc.hpp",
+        "server.cpp",
     ],
     deps = [
         "//stratum/hal/lib/common:test_main",
@@ -102,5 +130,7 @@ stratum_cc_test(
         # taimanager.h/.cc dependencies
         "//stratum/lib:utils",
         "//stratum/hal/lib/common:common_cc_proto",
+        "@com_github_grpc_grpc//:grpc++",
+        ":tai_proto_grpc",
     ],
 )

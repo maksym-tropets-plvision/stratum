@@ -59,6 +59,9 @@ class TAIWrapper : public TAIWrapperInterface {
 
   void ModulePresenceHandler();
 
+  // TODO
+  tai_api_method_table_t* GetMethodTableApiPtr() override;
+
  private:
   tai_status_t CreateModule(const std::string& location);
 

@@ -327,8 +327,9 @@ def stratum_deps():
         )
 
     if "com_github_tai_implementations" not in native.existing_rules():
-        remote_workspace(
+        git_repository(
             name = "com_github_tai_implementations",
             remote = "https://github.com/bohdan-oheruk-plvision/oopt-tai-implementations.git",
-            commit = "b9b8aa49484bb118cc63897445eff8ad9bc030d3",
+            commit = "de0f8a61fcbee11e4fec318258b9fcaacf8cacb6",
+            init_submodules = True,
         )

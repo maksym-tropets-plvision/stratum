@@ -276,6 +276,10 @@ void TAIWrapper::ModulePresenceHandler() {
   }
 }
 
+tai_api_method_table_t* TAIWrapper::GetMethodTableApiPtr() {
+  return &api_;
+}
+
 }  // namespace tai
 }  // namespace phal
 }  // namespace hal

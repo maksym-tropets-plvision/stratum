@@ -21,6 +21,7 @@
 #include <string>
 
 #include "stratum/hal/lib/phal/tai/tai_wrapper/tai_attribute.h"
+#include "taigrpc.hpp"
 #include "stratum/lib/utils.h"
 
 namespace stratum {
@@ -28,15 +29,15 @@ namespace hal {
 namespace phal {
 namespace tai {
 
-/*!
- * \brief The tai_api_method_table_t struct contains method table retrieved
- * with tai_api_query()
- */
-struct tai_api_method_table_t {
-  tai_module_api_t* module_api{nullptr};
-  tai_host_interface_api_t* hostif_api{nullptr};
-  tai_network_interface_api_t* netif_api{nullptr};
-};
+// /*!
+//  * \brief The tai_api_method_table_t struct contains method table retrieved
+//  * with tai_api_query()
+//  */
+// struct tai_api_method_table_t {
+//   tai_module_api_t* module_api{nullptr};
+//   tai_host_interface_api_t* hostif_api{nullptr};
+//   tai_network_interface_api_t* netif_api{nullptr};
+// };
 
 /*!
  * \brief The TAIObject class is base class for each tai object (Module,

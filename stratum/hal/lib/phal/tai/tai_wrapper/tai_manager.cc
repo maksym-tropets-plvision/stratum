@@ -20,6 +20,9 @@
 #include <memory>
 #include <utility>
 
+#include "grpcpp/grpcpp.h"
+#include "taigrpc.hpp"
+
 #include "absl/memory/memory.h"
 
 namespace stratum {
@@ -40,6 +43,29 @@ TAIManager* TAIManager::CreateSingleton() {
 TAIManager* TAIManager::GetSingleton() {
   absl::ReaderMutexLock l(&init_lock_);
   return singleton_;
+}
+
+void TAIManager::StartTaishServer(const std::string& addr) {
+  auto grpc_thread = [this](const std::string& addr) {
+    LOG(ERROR) << ">>>>>>>>>>>>>>>>>>>> || Taish server thread started!"
+               << " Address: " << addr;
+
+    ::grpc::ServerBuilder builder;
+    builder.AddListeningPort(
+        grpc::string(addr), grpc::InsecureServerCredentials());
+
+    const tai_api_method_table_t* const api_ptr = tai_wrapper_->GetMethodTableApiPtr();
+    TAIServiceImpl service(api_ptr);
+    builder.RegisterService(&service);
+
+    auto server = builder.BuildAndStart();
+
+    LOG(ERROR) << ">>>>>>>>>>>>>>>>>>>> || Taish server thread will wait..";
+    server->Wait();
+  };
+
+  std::thread th(grpc_thread, addr);
+  th.detach();
 }
 
 /*!
